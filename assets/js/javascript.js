@@ -22,7 +22,7 @@ $(document).ready(function() {
     });
 
 
-    $('.rows-span').click(function() {
+    $('.rows span').click(function() {
         var currentLines = $(".inputLine").length;
         var toLines = $(this).attr("rel");
         if (currentLines <= toLines) {
