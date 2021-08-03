@@ -5,182 +5,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title> calcular valor de horas trabalhadas </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
     <link rel="stylesheet" href="/assets/css/style_calc.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/assets/css/jquery.datepick.css" type="text/css" media="all" />
-
+    
+    
+    
     <script language="javascript" type="text/javascript" src="/assets/js/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="/assets/js/jquery.datepick.pack.js"></script>
     <script language="javascript" type="text/javascript" src="/assets/js/javascript.js"></script>
 </head>
 
 <body>
+    <div class="container">
+
+    <h1 class="cl-write" align="center">Calcular valor por horas de trabalho </h1>
 
     <form id="calc" name="calc" method="post" action="">
-        <div class="wrap">
+        <div class="container-pt">  
+                <div id="msgs">xx</div>
 
-            <div class="container">
-                <div class="left">
-                    <div class="right">
-                        Informe os Valores
-                        <div id="msgs">xx</div>
+                <div id="printArea">
 
-                        <div id="printArea">
-                            <div id="enter_time">
-                                <table class="lineTarget" align="center">
-                                    <tr valign="middle">
-                                        <th></th>
-                                        <th align="left"><span style="background-color:#456daa">Entrada</span></th>
-                                        <th align="left"><span style="background-color:#ccab2a">Saída</span></th>
-                                        <th align="left"><span style="background-color:#539bed">Entrada</span></th>
-                                        <th align="left"><span style="background-color:#df8829">Saída</span></th>
-                                    </tr>
-                                    <tr class="inputLine">
-                                        <td>
-                                            <div class="listNum"></div>
-                                        </td>
-                                        <td width="20%">
-                                            <input type="text" class="listfield inputbox yellow_inputbox hour"
-                                                value="00" maxlength="2" /> :
+                    <div id="enter_time">
+                        <table class="table lineTarget" align="center">
+                            <tr valign="middle">
+                                <th></th>
+                                <th align="left"><span style="background-color:#456daa">Entrada</span></th>
+                                <th align="left"><span style="background-color:#ccab2a">Saída</span></th>
+                                <th align="left"><span style="background-color:#539bed">Entrada</span></th>
+                                <th align="left"><span style="background-color:#df8829">Saída</span></th>
+                            </tr>
+                            <tr class="inputLine">
+                                <td>
+                                    <div class="listNum"></div>
+                                </td>
+                                <td width="20%">
+                                    <input type="text" class="listfield inputbox yellow_inputbox hour"
+                                        value="00" maxlength="2" /> :
 
-                                            <input type="text" class="listfield inputbox yellow_inputbox minute"
-                                                value="00" maxlength="2" />
-                                        </td>
-                                        <td width="20%" valign="center">
-                                            <input type="text" class="listfield inputbox yellow_inputbox hour"
-                                                value="00" maxlength="2" /> :
-                                            <input type="text" class="listfield inputbox yellow_inputbox minute"
-                                                value="00" maxlength="2" />
-                                        </td>
-                                        <td width="20%" valign="center">
-                                            <input type="text" class="listfield inputbox yellow_inputbox hour"
-                                                value="00" maxlength="2" /> :
-                                            <input type="text" class="listfield inputbox yellow_inputbox minute"
-                                                value="00" maxlength="2" />
-                                        </td>
-                                        <td width="20%" valign="center">
-                                            <input type="text" class="listfield inputbox yellow_inputbox hour"
-                                                value="00" maxlength="2" /> :
-                                            <input type="text" class="listfield inputbox yellow_inputbox minute"
-                                                value="00" maxlength="2" />
-                                        </td>
-                                        <td width="4%">=</td>
-                                        <td width="8%"><input type="text" class="listfield inputbox gray_inputbox"
-                                                value="00:00" readonly="readonly" /></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="rows" align="right">
-                                <span rel="7">7 rows</span>&nbsp;&nbsp;
-                            </div>
-                            <div class="totals">
-                                Totals
-                            </div>
-                            <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0"
-                                style="margin: 0 auto;">
-                                <tr>
-                                    <td width="20%" height="35px" align="right">
-                                        Horas
-                                    </td>
-                                    <td width="4%"></td>
-                                    <td>
-                                        <input type="text" class="listfield enter gray_inputbox" value="00:00"
-                                            id="total" name="total" val="0" readonly="readonly" />
-
-                                    </td>
-                                    <td width="8%">&nbsp;</td>
-                                    <td align="right">
-                                        Data
-                                    </td>
-                                    <td width="4%"></td>
-                                    <td><input type="text" class="listfield enter yellow_inputbox" id="date" name="date"
-                                            value="" maxlength="8" /></td>
-                                    <td width="15%">&nbsp;</td>
-                                    <td align="center">
-                                        <button type="button" id="calculate">Calculate</button>
-                                    </td>
-                                    <td align="center">
-                                        <button type="button" id="clearAll">clearAll</button>
-                                    </td>
-                                    <td align="center"></td>
-                                </tr>
-                                <tr>
-                                    <td align="right" height="35px">
-                                        Valor
-                                    </td>
-                                    <td align="center">$</td>
-                                    <td>
-                                        <input type="text" class="listfield enter yellow_inputbox" id="rate" name="rate"
-                                            value="enter here" />
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td align="right">
-                                        Nome
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <input type="text" class="listfield enter yellow_inputbox" name="name" id="name"
-                                            value="" maxlength="6" />
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td width="18%" align="center">
-                                        <button type="button" id="print">print</button>
-
-                                    </td>
-                                    <td width="22%" align="center">
-                                        <button type="button" id="sendEmail">sendEmail</button>
-
-                                    </td>
-                                    <td width="1%" align="center"></td>
-                                </tr>
-                                <tr>
-                                    <td align="right">
-                                        Total
-                                    </td>
-                                    <td align="center">$</td>
-                                    <td>
-                                        <input type="text" class="listfield enter gray_inputbox" value="0.00"
-                                            id="totalPay" name="totalPay" val="0" readonly="readonly" />
-                                    </td>
-                                    <td colspan="5"></td>
-                                    <td colspan="2">
-                                        <div>
-                                            <div class="support">Axel by<br />
-                                                <a href="http://axel-dev.herokuapp.com/"
-                                                    target="_blank">axel-dev.herokuapp.com</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div id="outBox">
-                            <div id="emailBox">
-                                <div style="padding-left: 18px;">
-                                    Email: <input type="text" name="email" id="email" maxlength="100" />
-                                </div>
-                                <div style="padding-left: 18px;">
-                                    Captcha: <input id="captcha" type="text" size="5" name="captcha" maxlength="5">
-                                    <img id="captchaImg"
-                                        src="http://www.calculatehours.com/24hour/Time_Calculator/calc/captcha.php"
-                                        style="vertical-align: bottom;" />
-                                </div>
-                                <div style="display: none;">Comment: <textarea name="comment" id="comment"></textarea>
-                                </div>
-                                <div class="emailButtons">
-                                    <input type="hidden" value="LunchBreak" name="calculator" id="calculator" />
-                                    <input type="button" value="Send" class="submitSendEmail" />
-                                    <input type="button" value="Cancel" class="cancelSend" />
-                                </div>
-                                <div id="msg"></div>
-                            </div>
-                        </div>
+                                    <input type="text" class="listfield inputbox yellow_inputbox minute"
+                                        value="00" maxlength="2" />
+                                </td>
+                                <td width="20%" valign="center">
+                                    <input type="text" class="listfield inputbox yellow_inputbox hour"
+                                        value="00" maxlength="2" /> :
+                                    <input type="text" class="listfield inputbox yellow_inputbox minute"
+                                        value="00" maxlength="2" />
+                                </td>
+                                <td width="20%" valign="center">
+                                    <input type="text" class="listfield inputbox yellow_inputbox hour"
+                                        value="00" maxlength="2" /> :
+                                    <input type="text" class="listfield inputbox yellow_inputbox minute"
+                                        value="00" maxlength="2" />
+                                </td>
+                                <td width="20%" valign="center">
+                                    <input type="text" class="listfield inputbox yellow_inputbox hour"
+                                        value="00" maxlength="2" /> :
+                                    <input type="text" class="listfield inputbox yellow_inputbox minute"
+                                        value="00" maxlength="2" />
+                                </td>
+                                <td width="4%">=</td>
+                                <td width="8%"><input type="text" class="listfield inputbox gray_inputbox"
+                                        value="00:00" readonly="readonly" /></td>
+                            </tr>
+                        </table>
                     </div>
-                </div>
-            </div>
+                    
+                    <div class="rows" align="right">
+                        <span rel="7"></span>&nbsp;&nbsp;
+                    </div>
+                    
+                    <div class="totals">
+                        <h1> Totais </h1> 
+                    </div>
 
-        </div>
+
+                    <table class="table" width="95%" style="margin: 1 auto;">
+                        <tr>
+                            <td width="20%" height="35px" align="right">
+                                Horas
+                            </td>
+                            <td width="4%"></td>
+                            <td>
+                                <input type="text" class="listfield enter gray_inputbox" 
+                                        value="00:00"
+                                        id="total" 
+                                        name="total" 
+                                        val="0" 
+                                        readonly="readonly" />
+
+                            </td>
+                            <td width="8%">&nbsp;</td>
+                            <td align="right">
+                                Data
+                            </td>
+                            <td width="4%"></td>
+                            <td width="40%"><input type="text" class="listfield enter yellow_inputbox" 
+                                        id="date" 
+                                        name="date"
+                                        value="" 
+                                        maxlength="8" /></td>
+                            
+                            <td width="15%">&nbsp;</td>
+                            
+                            <td align="center">
+                                <button class="btn btn-primary" type="button" id="calculate">Calcular</button>
+                            </td>
+
+                            <td align="center">
+                                <button class="btn btn-danger" type="button" id="clearAll">Limpar</button>
+                            </td>
+
+                            <td align="center"></td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="35px">
+                                Valor
+                            </td>
+                            <td align="center">R$</td>
+                            <td>
+                                <input type="text" 
+                                       class="listfield enter yellow_inputbox" 
+                                       id="rate" 
+                                       name="rate"
+                                       placeholder="Valor hora"
+                                       value="" />
+                            </td>
+                            <td>&nbsp;</td>
+                            <td align="right">
+                                Nome
+                            </td>
+                            <td></td>
+                            <td>
+                                <input type="text" 
+                                    class="listfield enter yellow_inputbox" 
+                                    name="name" 
+                                    id="name"
+                                    placeholder="Nome"
+                                    value=""  />
+                            </td>
+                            <td>&nbsp;</td>
+                            <td width="18%" align="center">
+                                <button 
+                                    class="btn btn-warning" 
+                                    type="button" id="print">Inprimir</button>
+
+                            </td>
+                            <td width="22%" align="center">
+                                
+                            </td>
+                            <td width="1%" align="center"></td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                Total
+                            </td>
+                            <td align="center">R$</td>
+                            <td>
+                                <input type="text" 
+                                       class="listfield enter gray_inputbox" 
+                                       value="0.00"
+                                       id="totalPay" 
+                                       name="totalPay" 
+                                       val="0" 
+                                       readonly="readonly" />
+                            </td>
+                            <td colspan="5"></td>
+                            <td colspan="2"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                     
+        </div>  
     </form>
+    </div>
 </body>
 
 </html>
