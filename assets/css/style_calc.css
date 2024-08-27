@@ -1,8 +1,4 @@
 /* CSS Document */
-_*_ {
-  margin: 0;
-  padding: 0;
-}
 
 body {
   min-height: 70rem;
@@ -12,7 +8,6 @@ body {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   font-family:Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 }
-
 
 .container-pt {
   background: rgb(167, 165, 165);
@@ -35,14 +30,25 @@ body {
   text-align: center;
 }
 
+
 .lineTarget {
   width: 85%;
   margin: 0 auto 5px;
 }
 
-.lineTarget th span {
+.lineTarget th  {
   padding: 5px;
 }
+
+.lineTarget th .tr_blue{
+  background-color:#456daa;
+}
+
+
+.th_laranja {
+  background-color:#df8829
+}
+
 
 .lineTarget td {
   line-height: 20px;
@@ -91,25 +97,13 @@ body {
 }
 
 
-
-/*
-.rows {
-  display: none;
-}
-
-.rows span {
-  cursor: pointer;
-  display: none;
-}
-*/
-
 #msg {
   color: red;
   font: bold 12px verdana;
 }
 #email {
   width: 130px;
-  *width: 115px;
+ 
 }
 #outBox {
   position: relative;
@@ -133,7 +127,6 @@ body {
 #emailBox textarea {
   width: 200px;
   height: 58px;
-  *height: 48px;
 }
 .submitSendEmail,
 .cancelSend {
@@ -142,27 +135,3 @@ body {
 .emailButtons {
   text-align: center;
 }
-
-#printArea {
-  /*text-align: center;*/
-}
-
-
-.weekof {
-  font-size: 12px;
-  font-weight: bold;
-  margin: 15px 5px 10px;
-}
-.weekof input {
-  width: 20px;
-  text-align: center;
-}
-
-/*
-div.btn {
-  width: 98px;
-  height: 33px;
-  line-height: 33px;
-  text-align: center;
-}
-*/
