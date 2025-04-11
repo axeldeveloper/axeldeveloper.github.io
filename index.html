@@ -1,23 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Axel Alexander | Consultoria em Desenvolvimento de Sistemas</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/assets/css/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <title>Axel Alexander | Consultoria em Desenvolvimento de Sistemas</title>
+    <link rel="icon" href="img/favicon.ico" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+
     <!-- Begin Jekyll SEO tag v2.6.1 -->
-    <meta name="generator" content="Axel Alexander" />
     <meta property="og:title" content="Axel Alexander" />
     <meta property="og:locale" content="pt_BR" />
-    <meta
-      name="description"
-      content="Ofereço serviços de consultoria de TI e desenvolvimento de software a nível nacional"
-    />
     <meta property="og:description" content="Meu portifolio" />
-    <meta property="og:url" content="" />
+    <meta property="og:url" content="https://axeldeveloper.github.io/" />
     <meta property="og:site_name" content="axeldeveloper" />
+    <meta name="generator" content="Axel Alexander" />
+    <meta name="description"content="Serviços de consultoria de TI e desenvolvimento de software a nível nacional"/>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+                .register("service-worker.js")
+                .then(() => console.log("Service Worker registrado com sucesso!"))
+                .catch((err) => console.log("Erro ao registrar SW:", err));
+      }
+      else{
+        console.log("Service Worker ne chum !")
+      }
+    </script>
+
   </head>
 
   <body>
@@ -58,6 +76,10 @@
           <a href="pesquisa_cep.html" class="btn btn-github">
             <span class="fa fa-calc"></span>
             Pesquisa CEP
+          </a>
+          <a href="poupanca.html" class="btn btn-github">
+            <span class="fa fa-calc"></span>
+            Poupanca
           </a>
         </section>
       </div>
@@ -252,7 +274,7 @@
             />
           </a>
         </p>
-        <!-- 
+        <!--
         <p>
           <a href="http://axel-dev.herokuapp.com/">
             <img
@@ -277,13 +299,13 @@
           <dt>email</dt>
           <dd>axel_nomore@hotmail.com</dd>
         </dl>
-        <!-- 
+        <!--
         <div>
           <p>
             <img
               height="80"
               width="80"
-              src="./assets/img/AA-Badge-explorer-352.png"
+              src="./assets/img/agile-explorer.png"
               alt="AA-Badge-explorer"
             />
           </p>
@@ -291,7 +313,7 @@
             <img
               height="80"
               width="80"
-              src="./assets/img/CertiProf-Badge-Scrum.png"
+              src="./assets/img/scrum.png"
               alt="AA-Badge-explorer"
             />
           </p>
@@ -299,7 +321,7 @@
             <img
               height="80"
               width="80"
-              src="./assets/img/CertiProf-Badge-Lifelong.png"
+              src="./assets/img/lifelong.png"
               alt="AA-Badge-explorer"
             />
           </p>
@@ -307,13 +329,13 @@
         -->
         <div class="language-plaintext highlighter-rouge">
           <div class="highlight">
-          
-            
+
+
             <code>
                 <a href="https://www.instagram.com/axeldeveloper/?hl=pt-br">@instagram</a>
             </code>
 
-           
+
           </div>
         </div>
       </section>

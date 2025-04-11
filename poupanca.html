@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Poupança</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: calc(100% - 24px);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        th {
+            background-color: #f8f8f8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calculadora de Poupança</h1>
+    <label for="valor">Valor Poupado:</label>
+    <input type="number" id="valor" placeholder="Insira o valor poupado">
+
+    <label for="meses">Quantidade de meses:</label>
+    <input type="number" id="meses" placeholder="Insira a quantidade de meses">
+
+    <p for="meses">Taxa anual:</p>
+
+    <button onclick="calcularRendimento()">Calcular</button>
+
+    <table id="resultado" style="display:none;">
+        <thead>
+            <tr>
+                <th>Valor Inicial</th>
+                <th>Meses</th>
+                <th>Valor Final</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="valorInicial"></td>
+                <td id="mesesPoupados"></td>
+                <td id="valorFinal"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function calcularRendimento() {
+        // Obter os valores inseridos pelo usuário
+        const valorPoupado = parseFloat(document.getElementById('valor').value);
+        const meses = parseInt(document.getElementById('meses').value);
+        
+        // Verificar se os campos foram preenchidos
+        if (isNaN(valorPoupado) || isNaN(meses) || valorPoupado <= 0 || meses <= 0) {
+            alert('Por favor, insira valores válidos.');
+            return;
+        }
+        
+        // Taxa de juros anual
+        const taxaJurosAnual = 6.17 / 100;
+        const taxaJurosMensal = Math.pow(1 + taxaJurosAnual, 1/12) - 1;
+
+        // Cálculo do rendimento após os meses informados
+        const valorFinal = valorPoupado * Math.pow(1 + taxaJurosMensal, meses);
+
+        // Mostrar o resultado na tabela
+        document.getElementById('valorInicial').innerText = valorPoupado.toFixed(2);
+        document.getElementById('mesesPoupados').innerText = meses;
+        document.getElementById('valorFinal').innerText = valorFinal.toFixed(2);
+        document.getElementById('resultado').style.display = 'table';
+    }
+</script>
+
+</body>
+</html>
