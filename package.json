@@ -1,0 +1,19 @@
+{
+  "name": "axeldeveloper-github-io",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "postcss src/input.css -o assets/css/output.css",
+    "build:index3": "postcss src/input3.css -o assets/css/output3.css",
+    "build:calc": "postcss src/input-calc.css -o assets/css/output-calc.css",
+    "build:calc-programer": "postcss src/input-calc-programer.css -o assets/css/output-calc-programer.css",
+    "build:calc-folha": "postcss src/input-calc-folha.css -o assets/css/output-calc-folha.css",
+    "build:poupanca": "postcss src/input-poupanca.css -o assets/css/output-poupanca.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0",
+    "autoprefixer": "^10.4.17"
+  }
+}

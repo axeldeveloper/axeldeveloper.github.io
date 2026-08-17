@@ -1,104 +1,133 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Poupança</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 20px;
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Axel Alexander | Calculadora de Poupança</title>
+    <link rel="icon" href="img/favicon.ico" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#030712">
+    <meta property="og:title" content="Axel Alexander | Calculadora de Poupança" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:description" content="Calculadora de poupança com taxa Selic" />
+    <meta property="og:url" content="https://axeldeveloper.github.io/poupanca.html" />
+    <meta property="og:site_name" content="axeldeveloper" />
+    <meta name="description" content="Calculadora de poupança para calcular rendimentos" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/assets/css/output-poupanca.css" />
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("./assets/js/service-worker.js")
+                .then(() => console.log("Service Worker registrado com sucesso!"))
+                .catch((err) => console.log("Erro ao registrar SW:", err));
         }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px 0;
-            width: calc(100% - 24px);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-        }
-        th {
-            background-color: #f8f8f8;
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-gray-950 text-gray-100 font-sans antialiased min-h-screen">
 
-<div class="container">
-    <h1>Calculadora de Poupança</h1>
-    <label for="valor">Valor Poupado:</label>
-    <input type="number" id="valor" placeholder="Insira o valor poupado">
+    <nav class="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-sm border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14">
+                <a href="index.html" class="text-emerald-400 font-semibold text-lg tracking-tight">
+                    <i class="fa fa-arrow-left mr-2 text-sm"></i>Axel Alexander
+                </a>
+                <div class="hidden sm:flex items-center gap-4 text-sm text-gray-400">
+                    <a href="calc.html" class="hover:text-emerald-400 transition-colors">Calculadora</a>
+                    <a href="calc_programer.html" class="hover:text-emerald-400 transition-colors">Freelancer</a>
+                    <a href="poupanca.html" class="text-emerald-400 font-medium">Poupança</a>
+                    <a href="pesquisa_cep.html" class="hover:text-emerald-400 transition-colors">CEP</a>
+                </div>
+                <button onclick="window.print()" class="sm:hidden text-gray-400 hover:text-emerald-400 transition-colors" aria-label="Imprimir">
+                    <i class="fa fa-print text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-    <label for="meses">Quantidade de meses:</label>
-    <input type="number" id="meses" placeholder="Insira a quantidade de meses">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-emerald-400 text-center mb-8">
+            <i class="fa fa-piggy-bank mr-2"></i>Calculadora de Poupança
+        </h1>
 
-    <p for="meses">Taxa anual:</p>
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 sm:p-8 shadow-xl">
+            <div class="space-y-6">
+                <div>
+                    <label for="valor" class="block text-sm font-medium text-gray-300 mb-2">Valor Poupado:</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">R$</span>
+                        <input type="number" id="valor" placeholder="Insira o valor poupado"
+                            class="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all">
+                    </div>
+                </div>
 
-    <button onclick="calcularRendimento()">Calcular</button>
+                <div>
+                    <label for="meses" class="block text-sm font-medium text-gray-300 mb-2">Quantidade de meses:</label>
+                    <input type="number" id="meses" placeholder="Insira a quantidade de meses"
+                        class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all">
+                </div>
 
-    <table id="resultado" style="display:none;">
-        <thead>
-            <tr>
-                <th>Valor Inicial</th>
-                <th>Meses</th>
-                <th>Valor Final</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td id="valorInicial"></td>
-                <td id="mesesPoupados"></td>
-                <td id="valorFinal"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                <div class="text-center text-sm text-gray-400">
+                    <p>Taxa anual: <span class="text-emerald-400 font-medium">6,17%</span></p>
+                </div>
 
-<script>
-    function calcularRendimento() {
-        // Obter os valores inseridos pelo usuário
-        const valorPoupado = parseFloat(document.getElementById('valor').value);
-        const meses = parseInt(document.getElementById('meses').value);
-        
-        // Verificar se os campos foram preenchidos
-        if (isNaN(valorPoupado) || isNaN(meses) || valorPoupado <= 0 || meses <= 0) {
-            alert('Por favor, insira valores válidos.');
-            return;
+                <button onclick="calcularRendimento()" class="w-full py-3 px-6 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                    <i class="fa fa-calculator mr-2"></i>Calcular
+                </button>
+            </div>
+
+            <div id="resultado" class="mt-8 hidden">
+                <h2 class="text-lg font-semibold text-emerald-400 mb-4">
+                    <i class="fa fa-table mr-2"></i>Resultado
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-700">
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-emerald-400">Valor Inicial</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-emerald-400">Meses</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-emerald-400">Valor Final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-800">
+                                <td id="valorInicial" class="px-4 py-3 text-gray-300"></td>
+                                <td id="mesesPoupados" class="px-4 py-3 text-gray-300"></td>
+                                <td id="valorFinal" class="px-4 py-3 text-gray-300"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function calcularRendimento() {
+            const valorPoupado = parseFloat(document.getElementById('valor').value);
+            const meses = parseInt(document.getElementById('meses').value);
+            
+            if (isNaN(valorPoupado) || isNaN(meses) || valorPoupado <= 0 || meses <= 0) {
+                alert('Por favor, insira valores válidos.');
+                return;
+            }
+            
+            const taxaJurosAnual = 6.17 / 100;
+            const taxaJurosMensal = Math.pow(1 + taxaJurosAnual, 1/12) - 1;
+            const valorFinal = valorPoupado * Math.pow(1 + taxaJurosMensal, meses);
+
+            document.getElementById('valorInicial').innerText = valorPoupado.toFixed(2);
+            document.getElementById('mesesPoupados').innerText = meses;
+            document.getElementById('valorFinal').innerText = valorFinal.toFixed(2);
+            document.getElementById('resultado').style.display = 'block';
         }
-        
-        // Taxa de juros anual
-        const taxaJurosAnual = 6.17 / 100;
-        const taxaJurosMensal = Math.pow(1 + taxaJurosAnual, 1/12) - 1;
-
-        // Cálculo do rendimento após os meses informados
-        const valorFinal = valorPoupado * Math.pow(1 + taxaJurosMensal, meses);
-
-        // Mostrar o resultado na tabela
-        document.getElementById('valorInicial').innerText = valorPoupado.toFixed(2);
-        document.getElementById('mesesPoupados').innerText = meses;
-        document.getElementById('valorFinal').innerText = valorFinal.toFixed(2);
-        document.getElementById('resultado').style.display = 'table';
-    }
-</script>
+    </script>
 
 </body>
 </html>

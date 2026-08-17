@@ -1,68 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="pt-BR">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Axel Alexander | Consultoria em Desenvolvimento de Sistemas</title>
+    <title>Axel Alexander | Calculadora Freelancer</title>
     <link rel="icon" href="img/favicon.ico" />
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#000000">
-
-    <!-- Begin Jekyll SEO tag v2.6.1 -->
-    <meta property="og:title" content="Axel Alexander" />
+    <meta name="theme-color" content="#030712">
+    <meta property="og:title" content="Axel Alexander | Calculadora Freelancer" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:description" content="Meu portifolio" />
-    <meta property="og:url" content="https://axeldeveloper.github.io/" />
+    <meta property="og:description" content="Calculadora de valores para desenvolvedores freelancers" />
+    <meta property="og:url" content="https://axeldeveloper.github.io/calc_programer.html" />
     <meta property="og:site_name" content="axeldeveloper" />
-    <meta name="generator" content="Axel Alexander" />
-    <meta name="description"content="Serviços de consultoria de TI e desenvolvimento de software a nível nacional"/>
+    <meta name="description" content="Calculadora de valores para desenvolvedores freelancers - calcule o custo do projeto" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/assets/css/output-calc-programer.css" />
 
-    <link rel="stylesheet" type="text/css" href="/assets/css/programer.css" />
-  </head>
-  <body>
-    <nav class="barra-navegacao">
-      <img
-        class="barra-navegacao__logotipo"
-        src="/assets/img/gopherjs.png"
-      />
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("./assets/js/service-worker.js")
+                .then(() => console.log("Service Worker registrado com sucesso!"))
+                .catch((err) => console.log("Erro ao registrar SW:", err));
+        }
+    </script>
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans antialiased min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-sm border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14">
+                <a href="index.html" class="text-emerald-400 font-semibold text-lg tracking-tight">
+                    <i class="fa fa-arrow-left mr-2 text-sm"></i>Axel Alexander
+                </a>
+                <div class="hidden sm:flex items-center gap-4 text-sm text-gray-400">
+                    <a href="calc.html" class="hover:text-emerald-400 transition-colors">Calculadora</a>
+                    <a href="calc_programer.html" class="text-emerald-400 font-medium">Freelancer</a>
+                    <a href="poupanca.html" class="hover:text-emerald-400 transition-colors">Poupança</a>
+                    <a href="pesquisa_cep.html" class="hover:text-emerald-400 transition-colors">CEP</a>
+                </div>
+                <button onclick="window.print()" class="sm:hidden text-gray-400 hover:text-emerald-400 transition-colors" aria-label="Imprimir">
+                    <i class="fa fa-print text-lg"></i>
+                </button>
+            </div>
+        </div>
     </nav>
-    <header class="cabecalho">
-      <h1 class="cabecalho__titulo">Calculadora Freelancer</h1>
-    </header>
-    <main class="conteudo-principal">
-      <section class="secao secao-hora">
-        <article class="secao__conteudo">
-          <div class="secao__formulario">
-            <fieldset>
-              <legend>Qual o seu valor por hora?</legend>
-              <div class="secao__formulario__grupo">
-                <label for="valor-hora">Valor por hora</label>
-                <input id="valor-hora" type="number" value="0" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Quantas horas tem o Projeto?</legend>
-              <div class="secao__formulario__grupo">
-                <label for="horas-projeto">Horas do projeto</label>
-                <input id="horas-projeto" type="number" value="0" />
-              </div>
-            </fieldset>
-            <button onclick="calcularValorHora()">Calcular</button>
-          </div>
-        </article>
-        <footer class="secao__rodape">
-          <h3 class="secao__rodape__valor">
-            <span id="resposta">R$ 0,00</span><small>/hora</small>
-          </h3>
-          <p class="secao__rodape__legenda">Calculo do Projeto</p>
-        </footer>
-      </section>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-100 tracking-tight">
+                <i class="fa fa-calculator text-emerald-400 mr-2"></i>Calculadora Freelancer
+            </h1>
+            <p class="mt-2 text-gray-400 text-sm sm:text-base">Calcule o valor do seu projeto</p>
+        </div>
+
+        <!-- Calculator Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+            <!-- Form Card -->
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+                <h2 class="text-lg font-semibold text-emerald-400 mb-6">
+                    <i class="fa fa-pencil-square-o mr-2"></i>Dados do Projeto
+                </h2>
+
+                <div class="space-y-6">
+                    <!-- Hourly Rate -->
+                    <div>
+                        <label for="valor-hora" class="block text-sm font-medium text-gray-300 mb-2">
+                            Qual o seu valor por hora?
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">R$</span>
+                            <input type="number" id="valor-hora" value="0" step="0.01"
+                                class="w-full bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-4 py-3 text-gray-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors text-base"
+                                placeholder="0.00">
+                        </div>
+                        <p class="mt-1 text-xs text-gray-500">Valor por hora de trabalho</p>
+                    </div>
+
+                    <!-- Project Hours -->
+                    <div>
+                        <label for="horas-projeto" class="block text-sm font-medium text-gray-300 mb-2">
+                            Quantas horas tem o Projeto?
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i class="fa fa-clock-o"></i></span>
+                            <input type="number" id="horas-projeto" value="0" step="0.5"
+                                class="w-full bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-4 py-3 text-gray-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors text-base"
+                                placeholder="0">
+                        </div>
+                        <p class="mt-1 text-xs text-gray-500">Horas estimadas para o projeto</p>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button onclick="calcularValorHora()"
+                        class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-medium rounded-lg transition-colors">
+                        <i class="fa fa-calculator"></i> Calcular
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Card -->
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-center">
+                <h2 class="text-lg font-semibold text-emerald-400 mb-6">
+                    <i class="fa fa-line-chart mr-2"></i>Resultado
+                </h2>
+
+                <div class="text-center py-8">
+                    <h3 class="text-4xl sm:text-5xl font-bold text-emerald-400 mb-2">
+                        <span id="resposta">R$ 0,00</span><small class="text-2xl text-gray-500 font-normal">/hora</small>
+                    </h3>
+                    <p class="text-gray-400 text-sm mt-4">Calculo do Projeto</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Info Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 text-center">
+                <i class="fa fa-money text-emerald-400 text-xl mb-2"></i>
+                <p class="text-gray-300 text-sm font-medium">Valor por Hora</p>
+                <p class="text-gray-500 text-xs mt-1">Define seu preço</p>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 text-center">
+                <i class="fa fa-clock-o text-emerald-400 text-xl mb-2"></i>
+                <p class="text-gray-300 text-sm font-medium">Horas do Projeto</p>
+                <p class="text-gray-500 text-xs mt-1">Estimativa de tempo</p>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 text-center">
+                <i class="fa fa-calculator text-emerald-400 text-xl mb-2"></i>
+                <p class="text-gray-300 text-sm font-medium">Total do Projeto</p>
+                <p class="text-gray-500 text-xs mt-1">Valor final calculado</p>
+            </div>
+        </div>
+
     </main>
 
     <script type="text/javascript" src="/assets/js/programer.js"></script>
-  </body>
+</body>
 </html>

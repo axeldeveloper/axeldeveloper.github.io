@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Axel Alexander | Calculadora de Horas</title>
+    <link rel="icon" href="img/favicon.ico" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#030712">
+    <meta property="og:title" content="Axel Alexander | Calculadora de Horas" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:description" content="Calculadora de horas semanais e relatório de ponto" />
+    <meta property="og:url" content="https://axeldeveloper.github.io/calc.html" />
+    <meta property="og:site_name" content="axeldeveloper" />
+    <meta name="description" content="Calculadora de horas semanais para relatório de trabalho" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/assets/css/output-calc.css" />
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("./assets/js/service-worker.js")
+                .then(() => console.log("Service Worker registrado com sucesso!"))
+                .catch((err) => console.log("Erro ao registrar SW:", err));
+        }
+    </script>
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans antialiased min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-sm border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14">
+                <a href="index.html" class="text-emerald-400 font-semibold text-lg tracking-tight">
+                    <i class="fa fa-arrow-left mr-2 text-sm"></i>Axel Alexander
+                </a>
+                <div class="hidden sm:flex items-center gap-4 text-sm text-gray-400">
+                    <a href="calc.html" class="text-emerald-400 font-medium">Calculadora</a>
+                    <a href="poupanca.html" class="hover:text-emerald-400 transition-colors">Poupança</a>
+                    <a href="pesquisa_cep.html" class="hover:text-emerald-400 transition-colors">CEP</a>
+                </div>
+                <button onclick="window.print()" class="sm:hidden text-gray-400 hover:text-emerald-400 transition-colors" aria-label="Imprimir">
+                    <i class="fa fa-print text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-100 tracking-tight">
+                <i class="fa fa-clock-o text-emerald-400 mr-2"></i>Relatório de Horas Semanais
+            </h1>
+            <p class="mt-2 text-gray-400 text-sm sm:text-base">Preencha os horários e calcule o total da semana</p>
+        </div>
+
+        <!-- Name Input -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-300 mb-2">Nome completo</label>
+            <input type="text" id="nomeCompleto"
+                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors text-base"
+                placeholder="Digite seu nome completo">
+        </div>
+
+        <!-- Table - Desktop -->
+        <div class="hidden md:block bg-gray-900 border border-gray-800 rounded-xl overflow-hidden mb-8">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-gray-800">
+                        <th class="px-4 py-3 text-left text-emerald-400 font-semibold">Dia</th>
+                        <th class="px-4 py-3 text-center text-emerald-400 font-semibold">Entrada</th>
+                        <th class="px-4 py-3 text-center text-emerald-400 font-semibold">Saída Almoço</th>
+                        <th class="px-4 py-3 text-center text-emerald-400 font-semibold">Volta Almoço</th>
+                        <th class="px-4 py-3 text-center text-emerald-400 font-semibold">Saída</th>
+                        <th class="px-4 py-3 text-center text-emerald-400 font-semibold">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-desktop" class="divide-y divide-gray-800"></tbody>
+            </table>
+        </div>
+
+        <!-- Table - Mobile (Cards) -->
+        <div id="tabela-mobile" class="md:hidden space-y-3 mb-8"></div>
+
+        <!-- Summary Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                <label class="block text-xs font-medium text-gray-400 mb-2">Valor da hora (R$)</label>
+                <input type="number" id="valorHora"
+                    class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-gray-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
+                    value="20" oninput="calcularResumo()" step="0.01">
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                <label class="block text-xs font-medium text-gray-400 mb-2">Total da semana</label>
+                <input type="text" id="totalSemana"
+                    class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-emerald-400 font-mono font-semibold" readonly>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                <label class="block text-xs font-medium text-gray-400 mb-2">Total em R$</label>
+                <input type="text" id="totalReais"
+                    class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-emerald-400 font-mono font-semibold" readonly>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
+            <button onclick="baterPonto()"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-medium rounded-lg transition-colors">
+                <i class="fa fa-clock-o"></i> Bater Ponto
+            </button>
+            <button onclick="window.print()"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 border border-gray-700 hover:bg-gray-700 text-gray-200 font-medium rounded-lg transition-colors">
+                <i class="fa fa-print"></i> Imprimir Relatório
+            </button>
+        </div>
+
+        <!-- Punch List -->
+        <div id="listaPontos" class="space-y-2"></div>
+
+    </main>
+
+    <script>
+        const dias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+
+        function criarLinhaDesktop(dia, index) {
+            const linha = document.createElement("tr");
+            linha.className = "hover:bg-gray-800/50 transition-colors";
+            linha.innerHTML = `
+                <td class="px-4 py-3 font-medium text-gray-200">${dia}</td>
+                <td class="px-4 py-3"><input type="time" id="in1-${index}" onblur="calcularHoras(${index})" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-gray-100 text-center focus:outline-none focus:border-emerald-500 transition-colors"></td>
+                <td class="px-4 py-3"><input type="time" id="out1-${index}" onblur="calcularHoras(${index})" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-gray-100 text-center focus:outline-none focus:border-emerald-500 transition-colors"></td>
+                <td class="px-4 py-3"><input type="time" id="in2-${index}" onblur="calcularHoras(${index})" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-gray-100 text-center focus:outline-none focus:border-emerald-500 transition-colors"></td>
+                <td class="px-4 py-3"><input type="time" id="out2-${index}" onblur="calcularHoras(${index})" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-gray-100 text-center focus:outline-none focus:border-emerald-500 transition-colors"></td>
+                <td class="px-4 py-3"><input type="text" id="total-${index}" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-emerald-400 font-mono text-center" readonly></td>
+            `;
+            document.getElementById("tabela-desktop").appendChild(linha);
+        }
+
+        function criarLinhaMobile(dia, index) {
+            const card = document.createElement("div");
+            card.className = "bg-gray-900 border border-gray-800 rounded-xl p-4";
+            card.innerHTML = `
+                <h3 class="text-emerald-400 font-semibold text-sm mb-3">${dia}</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">Entrada</label>
+                        <input type="time" id="m-in1-${index}" onblur="calcularHorasMobile(${index})" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2.5 text-gray-100 text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">Saída Almoço</label>
+                        <input type="time" id="m-out1-${index}" onblur="calcularHorasMobile(${index})" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2.5 text-gray-100 text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">Volta Almoço</label>
+                        <input type="time" id="m-in2-${index}" onblur="calcularHorasMobile(${index})" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2.5 text-gray-100 text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">Saída</label>
+                        <input type="time" id="m-out2-${index}" onblur="calcularHorasMobile(${index})" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2.5 text-gray-100 text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-800">
+                    <label class="block text-xs text-gray-500 mb-1">Total do dia</label>
+                    <input type="text" id="m-total-${index}" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-emerald-400 font-mono text-sm text-center" readonly>
+                </div>
+            `;
+            document.getElementById("tabela-mobile").appendChild(card);
+        }
+
+        function calcularMinutos(horaInicio, horaFim) {
+            const [h1, m1] = horaInicio.split(':').map(Number);
+            const [h2, m2] = horaFim.split(':').map(Number);
+            return (h2 * 60 + m2) - (h1 * 60 + m1);
+        }
+
+        function calcularHoras(index) {
+            const entrada1 = document.getElementById(`in1-${index}`)?.value;
+            const saida1   = document.getElementById(`out1-${index}`)?.value;
+            const entrada2 = document.getElementById(`in2-${index}`)?.value;
+            const saida2   = document.getElementById(`out2-${index}`)?.value;
+
+            let totalMinutos = 0;
+            if (entrada1 && saida1) totalMinutos += calcularMinutos(entrada1, saida1);
+            if (entrada2 && saida2) totalMinutos += calcularMinutos(entrada2, saida2);
+
+            const horas = Math.floor(totalMinutos / 60);
+            const minutos = totalMinutos % 60;
+            const totalStr = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`;
+
+            const totalInput = document.getElementById(`total-${index}`);
+            if (totalInput) totalInput.value = totalStr;
+
+            calcularResumo();
+        }
+
+        function calcularHorasMobile(index) {
+            const entrada1 = document.getElementById(`m-in1-${index}`)?.value;
+            const saida1   = document.getElementById(`m-out1-${index}`)?.value;
+            const entrada2 = document.getElementById(`m-in2-${index}`)?.value;
+            const saida2   = document.getElementById(`m-out2-${index}`)?.value;
+
+            let totalMinutos = 0;
+            if (entrada1 && saida1) totalMinutos += calcularMinutos(entrada1, saida1);
+            if (entrada2 && saida2) totalMinutos += calcularMinutos(entrada2, saida2);
+
+            const horas = Math.floor(totalMinutos / 60);
+            const minutos = totalMinutos % 60;
+            const totalStr = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`;
+
+            const totalInput = document.getElementById(`m-total-${index}`);
+            if (totalInput) totalInput.value = totalStr;
+
+            // Sync to desktop inputs
+            const dIn1 = document.getElementById(`in1-${index}`);
+            const dOut1 = document.getElementById(`out1-${index}`);
+            const dIn2 = document.getElementById(`in2-${index}`);
+            const dOut2 = document.getElementById(`out2-${index}`);
+            if (dIn1) dIn1.value = entrada1 || '';
+            if (dOut1) dOut1.value = saida1 || '';
+            if (dIn2) dIn2.value = entrada2 || '';
+            if (dOut2) dOut2.value = saida2 || '';
+
+            calcularResumo();
+        }
+
+        function calcularResumo() {
+            let totalMinutos = 0;
+
+            dias.forEach((_, i) => {
+                // Prefer desktop values, fallback to mobile
+                let val = document.getElementById(`total-${i}`)?.value;
+                if (!val) val = document.getElementById(`m-total-${i}`)?.value;
+                if (val) {
+                    const [h, m] = val.split(':').map(Number);
+                    totalMinutos += (h * 60 + m);
+                }
+            });
+
+            const horas = Math.floor(totalMinutos / 60);
+            const minutos = totalMinutos % 60;
+            document.getElementById("totalSemana").value = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`;
+
+            const valorHora = parseFloat(document.getElementById("valorHora").value || "0");
+            const totalReais = (totalMinutos / 60) * valorHora;
+            document.getElementById("totalReais").value = `R$ ${totalReais.toFixed(2)}`;
+        }
+
+        function baterPonto() {
+            const nome = document.getElementById("nomeCompleto").value.trim();
+            const lista = document.getElementById("listaPontos");
+
+            if (!nome) {
+                alert("Por favor, preencha seu nome completo.");
+                return;
+            }
+
+            const agora = new Date();
+            const dataStr = agora.toLocaleDateString();
+            const horaStr = agora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const item = document.createElement("div");
+            item.className = "bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 flex items-center gap-3";
+            item.innerHTML = `
+                <i class="fa fa-check-circle text-emerald-400"></i>
+                <span class="text-gray-300 text-sm">${dataStr} - ${horaStr} - ${nome}</span>
+            `;
+            lista.prepend(item);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            dias.forEach((dia, i) => {
+                criarLinhaDesktop(dia, i);
+                criarLinhaMobile(dia, i);
+            });
+        });
+    </script>
+</body>
+</html>

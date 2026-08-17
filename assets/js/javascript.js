@@ -37,7 +37,9 @@ $(document).ready(function() {
                     thisLine.push('<table cellspacing="2" cellpadding="0" class="table inputLine">' + lineHtml + '</table>')
                 }
             }
+
             $("#enter_time .lineTarget").append(thisLine.join(''))
+
         } else {
             var diffLines = currentLines - toLines;
             for (var i = 0; i < diffLines; i++) {

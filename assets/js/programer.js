@@ -1,7 +1,7 @@
 var inputValor = document.querySelector('#valor-hora');
 
 var inputProjeto = document.querySelector('#horas-projeto');
-var resultado = document.querySelector('span');
+var resultado = document.querySelector('#resposta');
 
 function calcularValorHora() {
   var valorHora = inputValor.valueAsNumber;
