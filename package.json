@@ -11,7 +11,7 @@
     "build:poupanca": "postcss src/input-poupanca.css -o assets/css/output-poupanca.css"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^4.3.3",
     "postcss": "^8.4.35",
     "postcss-cli": "^11.0.0",
     "autoprefixer": "^10.4.17"
